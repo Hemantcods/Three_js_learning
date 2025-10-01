@@ -1,21 +1,23 @@
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+// scene
+let scene = new THREE.Scene();
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+// camera
+let camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.z = 3;
+scene.add(camera);
 
-camera.position.z = 5;
+// mesh(geometry and material)
+let geometry = new THREE.BoxGeometry(1, 1, 1);
+let material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+let mesh = new THREE.Mesh(geometry, material);
 
-const canvas=document.querySelector("canvas")
-const renderer = new THREE.WebGLRenderer({canvas});
+mesh.position.x =0;
+mesh.position.y =0;
+mesh.position.z =0;
+scene.add(mesh);
+
+// renderer
+const canvas = document.querySelector("canvas");
+let renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(window.innerWidth, window.innerHeight);
-
-function animate() {
-    window.requestAnimationFrame(animate)
-    renderer.render(scene, camera);
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-}
-animate()
+renderer.render(scene, camera);

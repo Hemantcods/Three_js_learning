@@ -9,8 +9,8 @@ camera.position.z = 3;
 scene.add(camera);
 
 // mesh(geometry and material)
-let geometry = new THREE.BoxGeometry(1, 1, 1);
-let material = new THREE.MeshBasicMaterial({ color: "white", wireframe: true });
+let geometry = new THREE.SphereGeometry( 1,10,10 ); 
+let material = new THREE.MeshBasicMaterial({ color: "green" , wireframe: true });
 let mesh = new THREE.Mesh(geometry, material);
 
 mesh.position.x = 0;
@@ -24,24 +24,14 @@ let renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
-window.addEventListener("resize", () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-})
-
-// controls
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-
 // clock
 const clock = new THREE.Clock();
 // animation
 function animate() {
     requestAnimationFrame(animate);
     mesh.rotation.x = clock.getElapsedTime() * 0.5;
-    controls.update();
+    mesh.rotation.y = clock.getElapsedTime() * 0.5;
+    mesh.rotation.z = clock.getElapsedTime() * 0.5;
     renderer.render(scene, camera);
 }
 animate();

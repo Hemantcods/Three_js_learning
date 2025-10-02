@@ -9,15 +9,6 @@ let camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHei
 camera.position.z = 3;
 scene.add(camera);
 
-// light
-let light1 = new THREE.DirectionalLight(0xffffff,5);
-let light2 = new THREE.DirectionalLight(0xffffff,5);
-light1.position.set(5, 10, 7.5);
-light2.position.set(-5, -10, -7.5);
-scene.add(light1);
-scene.add(light2);
-
-
 
 // mesh(geometry and material)
 let geometry = new THREE.BoxGeometry( 1, 1, 1 ); 
@@ -43,6 +34,20 @@ let renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
+// ambient light
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+// scene.add(ambientLight);
+
+// directional light
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+directionalLight.position.set(1, 1, 1);
+// scene.add(directionalLight);
+
+// point light
+const pointLight = new THREE.PointLight(0xffffff, 0.5);
+pointLight.position.set(2, 2, 2);
+scene.add(pointLight);
+
 // orbit controls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
@@ -55,8 +60,6 @@ gui.add(mesh.position, "y", -3, 3, 0.01).name("position y");
 gui.add(mesh.position, "z", -3, 3, 0.01).name("position z");
 gui.add(mesh, "visible");
 gui.add(material, "wireframe");
-const light1Folder = gui.addFolder("light1");
-light1Folder.add(light1.position, "x", -10, 10, 0.01).name("position x");
 
 // clock
 const clock = new THREE.Clock();

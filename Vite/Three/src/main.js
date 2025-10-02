@@ -8,9 +8,19 @@ let camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHei
 camera.position.z = 3;
 scene.add(camera);
 
+// light
+let light1 = new THREE.DirectionalLight(0xffffff,5);
+let light2 = new THREE.DirectionalLight(0xffffff,5);
+light1.position.set(5, 10, 7.5);
+light2.position.set(-5, -10, -7.5);
+scene.add(light1);
+scene.add(light2);
+
+
+
 // mesh(geometry and material)
-let geometry = new THREE.SphereGeometry( 1,10,10 ); 
-let material = new THREE.MeshBasicMaterial({ color: "green" , wireframe: true });
+let geometry = new THREE.BoxGeometry( 1, 1, 1 ); 
+let material = new THREE.MeshStandardMaterial({ color: "red",side:THREE.DoubleSide,roughness:0.8,metalness:0.3 });
 let mesh = new THREE.Mesh(geometry, material);
 
 mesh.position.x = 0;
@@ -24,14 +34,16 @@ let renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
+// orbit controls
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+
 // clock
 const clock = new THREE.Clock();
 // animation
 function animate() {
     requestAnimationFrame(animate);
-    mesh.rotation.x = clock.getElapsedTime() * 0.5;
-    mesh.rotation.y = clock.getElapsedTime() * 0.5;
-    mesh.rotation.z = clock.getElapsedTime() * 0.5;
     renderer.render(scene, camera);
 }
 animate();

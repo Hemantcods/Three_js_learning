@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GUI } from 'lil-gui';
 // scene
 let scene = new THREE.Scene();
 
@@ -46,6 +47,16 @@ renderer.render(scene, camera);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.05;
+
+// lil-gui
+const gui = new GUI();
+gui.add(mesh.position, "x", -3, 3, 0.01).name("position x");
+gui.add(mesh.position, "y", -3, 3, 0.01).name("position y");
+gui.add(mesh.position, "z", -3, 3, 0.01).name("position z");
+gui.add(mesh, "visible");
+gui.add(material, "wireframe");
+const light1Folder = gui.addFolder("light1");
+light1Folder.add(light1.position, "x", -10, 10, 0.01).name("position x");
 
 // clock
 const clock = new THREE.Clock();

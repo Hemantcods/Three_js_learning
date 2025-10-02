@@ -20,8 +20,16 @@ scene.add(light2);
 
 // mesh(geometry and material)
 let geometry = new THREE.BoxGeometry( 1, 1, 1 ); 
-let material = new THREE.MeshStandardMaterial({ color: "red",side:THREE.DoubleSide,roughness:0.8,metalness:0.3 });
+let material = new THREE.MeshStandardMaterial({ side:THREE.DoubleSide });
 let mesh = new THREE.Mesh(geometry, material);
+
+
+
+// load texture
+let textureLoader = new THREE.TextureLoader();
+let texture = textureLoader.load("./public/texture/wood.jpg");
+material.map = texture;
+
 
 mesh.position.x = 0;
 mesh.position.y = 0;

@@ -36,12 +36,12 @@ renderer.render(scene, camera);
 
 // ambient light
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-// scene.add(ambientLight);
+scene.add(ambientLight);
 
 // directional light
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
 directionalLight.position.set(1, 1, 1);
-// scene.add(directionalLight);
+scene.add(directionalLight);
 
 // point light
 const pointLight = new THREE.PointLight(0xffffff, 0.5);
@@ -55,6 +55,26 @@ controls.dampingFactor = 0.05;
 
 // lil-gui
 const gui = new GUI();
+const lightFolder = gui.addFolder('Lights');
+const lightOptions = {
+    Ambient: false,
+    Directional: false,
+    Point: true
+};
+
+lightFolder.add(lightOptions, 'Ambient').name('Ambient Light').onChange((value) => {
+    if (value) scene.add(ambientLight);
+    else scene.remove(ambientLight);
+});
+lightFolder.add(lightOptions, 'Directional').name('Directional Light').onChange((value) => {
+    if (value) scene.add(directionalLight);
+    else scene.remove(directionalLight);
+});
+lightFolder.add(lightOptions, 'Point').name('Point Light').onChange((value) => {
+    if (value) scene.add(pointLight);
+    else scene.remove(pointLight);
+});
+
 gui.add(mesh.position, "x", -3, 3, 0.01).name("position x");
 gui.add(mesh.position, "y", -3, 3, 0.01).name("position y");
 gui.add(mesh.position, "z", -3, 3, 0.01).name("position z");
